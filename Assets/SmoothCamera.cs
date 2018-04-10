@@ -21,11 +21,16 @@ public class SmoothCamera : MonoBehaviour {
         Vector3 avgPos = new Vector3();
         foreach (Transform target in targets.transform)
         {
-            float newDist = (target.position - avgPos).magnitude;
-            cheapDist = cheapDist > newDist ? cheapDist : newDist;
+            
             avgPos += target.position;
             count++;
         }
+        foreach (Transform target in targets.transform)
+        {
+            float newDist = (target.position - avgPos).magnitude;
+            cheapDist = cheapDist > newDist ? cheapDist : newDist;
+        }
+
         //object to player distance weight
         cheapDist *= .3f;
         //weight the player extra
@@ -36,8 +41,10 @@ public class SmoothCamera : MonoBehaviour {
         if(count>0) avgPos /= count;
         currentAim = currentAim*(1-Time.deltaTime) + avgPos * Time.deltaTime;
         fadeDist = fadeDist * (1 - Time.deltaTime) + cheapDist * Time.deltaTime;
-        
-        this.transform.position = player.transform.position+new Vector3(-3,fadeDist,0);
+        Debug.DrawRay(currentAim, new Vector3(0, 10, 0),Color.yellow);
+        Debug.DrawLine(currentAim, this.transform.position, Color.blue);
+
+        this.transform.position = player.transform.position*.7f+currentAim*.3f +new Vector3(-3,fadeDist,0);
         this.transform.LookAt(currentAim,player.transform.up);
         
         

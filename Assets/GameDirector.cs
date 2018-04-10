@@ -8,6 +8,7 @@ public class GameDirector : MonoBehaviour {
     public GameObject enemyPrefab;
     public GameObject Player;
     private float lastSpawn = 0;
+    public GameObject currentCamera;
 	// Use this for initialization
 	void Start () {
         Director = this;
@@ -15,7 +16,7 @@ public class GameDirector : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Time.time-lastSpawn > 2)
+        if (Time.time-lastSpawn > 2 && false)
         {
             Instantiate(enemyPrefab, new Vector3(Random.value, Random.value, Random.value), this.transform.rotation,this.transform);
             lastSpawn = Time.time;
