@@ -30,13 +30,14 @@ public class SmoothCamera : MonoBehaviour {
         cheapDist *= .3f;
         //weight the player extra
         avgPos = (avgPos * 1 + player.transform.position * 1)/2;
-
+        //min and max distances
+        cheapDist = cheapDist < 3 ? 3 : cheapDist;
         cheapDist = cheapDist > 10 ? 10 : cheapDist;
         if(count>0) avgPos /= count;
         currentAim = currentAim*(1-Time.deltaTime) + avgPos * Time.deltaTime;
         fadeDist = fadeDist * (1 - Time.deltaTime) + cheapDist * Time.deltaTime;
         
-        this.transform.position = player.transform.position+new Vector3(0,fadeDist,0);
+        this.transform.position = player.transform.position+new Vector3(-3,fadeDist,0);
         this.transform.LookAt(currentAim,player.transform.up);
         
         
