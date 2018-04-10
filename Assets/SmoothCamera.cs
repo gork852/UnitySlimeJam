@@ -45,6 +45,10 @@ public class SmoothCamera : MonoBehaviour {
         Debug.DrawLine(currentAim, this.transform.position, Color.blue);
 
         this.transform.position = player.transform.position*.7f+currentAim*.3f +new Vector3(-3,fadeDist,0);
+        if (this.transform.position.x+2 > currentAim.x)
+        {
+            this.transform.position = new Vector3(currentAim.x-2,this.transform.position.y, this.transform.position.z);
+        }
         this.transform.LookAt(currentAim,player.transform.up);
         
         
