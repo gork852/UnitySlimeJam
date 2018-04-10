@@ -14,6 +14,8 @@ public class SlimeMovement : MonoBehaviour {
     private Vector2 aim;
     public GameObject targetLocation;
     public float triggerDistance = 10;
+    private float stunEnds = 0;
+    public int hp = 2;
     // Use this for initialization
     void Start()
     {
@@ -25,47 +27,62 @@ public class SlimeMovement : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        float jump = 0;
-        if (AITrigger + Random.value > 0)
+        if(hp == 0)
         {
-            currentEnthus = enthusiasim;
-            float aimDecision = Random.value;
-            if (aimDecision > .8)
+            GameDirector.Director.enemiesSpaned.Remove(this.gameObject);
+            Destroy(this.gameObject);
+        }
+        if (stunEnds < Time.time)
+        {
+            float jump = 0;
+            if (AITrigger + Random.value > 0)
             {
-                
-                //aim at player
-                Vector3 dif = this.transform.position - GameDirector.Director.Player.transform.position;
-                if(triggerDistance<dif.magnitude)
+                currentEnthus = enthusiasim;
+                float aimDecision = Random.value;
+                if (aimDecision > .8)
+                {
+
+                    //aim at player
+                    Vector3 dif = this.transform.position - GameDirector.Director.Player.transform.position;
+                    if (triggerDistance < dif.magnitude)
+                        aim = -new Vector2(dif.x, dif.z).normalized;
+                    else
+                        aim = Random.insideUnitCircle.normalized;
+                }
+                else if (aimDecision > .7 && targetLocation != null)
+                {
+                    Vector3 dif = this.transform.position - targetLocation.transform.position;
                     aim = -new Vector2(dif.x, dif.z).normalized;
-                else
+                }
+                else if (aimDecision > .3)
+                {
+                    //aim randomly
                     aim = Random.insideUnitCircle.normalized;
-            }
-            else if (aimDecision > .7 && targetLocation != null)
-            {
-                Vector3 dif = this.transform.position - targetLocation.transform.position;
-                aim = -new Vector2(dif.x, dif.z).normalized;
-            }
-            else if (aimDecision > .3)
-            {
-                //aim randomly
-                aim = Random.insideUnitCircle.normalized;
+                }
+                else
+                {
+                    //no change in aim form previous
+                }
+                if (Random.value > .8)
+                {
+                    jump = jumpHeight;
+                }
+                AITrigger = -AIcooldown;
             }
             else
             {
-                //no change in aim form previous
+                AITrigger += Time.deltaTime;
             }
-            if (Random.value > .8)
-            {
-                jump = jumpHeight;
-            }
-            AITrigger = -AIcooldown;
+            phys.velocity = new Vector3(aim.x * currentEnthus * moveSpeed, phys.velocity.y + jump, aim.y * currentEnthus * moveSpeed);
+            currentEnthus *= 1 - Time.deltaTime;
         }
-        else
-        {
-            AITrigger += Time.deltaTime;
-        }
-        
-        phys.velocity = new Vector3(aim.x * currentEnthus * moveSpeed, phys.velocity.y + jump,aim.y * currentEnthus * moveSpeed);
-        currentEnthus *= 1-Time.deltaTime;
+    }
+    public void stun()
+    {
+        this.stunEnds = Time.time + 3;
+    }
+    public void damage(int amount)
+    {
+        this.hp-=amount;
     }
 }

@@ -9,18 +9,28 @@ public class GameDirector : MonoBehaviour {
     public GameObject Player;
     private float lastSpawn = 0;
     public GameObject currentCamera;
+    public float spawnRate = 10;
+    public List<GameObject> enemiesSpaned;
 	// Use this for initialization
 	void Start () {
         Director = this;
-	}
+        lastSpawn = 15 - spawnRate;
+        enemiesSpaned = new List<GameObject>();
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        if (Time.time-lastSpawn > 10)
+        if (Time.time-lastSpawn > spawnRate && enemiesSpaned.Count<7)
         {
             for(int i = 0; i < 4; i++)
             {
-                Instantiate(enemyPrefab, new Vector3(Random.value * 5 + Player.transform.position.x + 5, 2, Random.value * 10 - 5), this.transform.rotation, this.transform);
+                enemiesSpaned.Add(
+                    Instantiate(enemyPrefab,
+                        new Vector3(Random.value * 5 + Player.transform.position.x + 5, 2, Random.value * 10 - 5),
+                        this.transform.rotation,
+                        this.transform)
+                    );
             }
             
             lastSpawn = Time.time;
