@@ -7,9 +7,9 @@ public class SlimeMovement : MonoBehaviour {
     private Rigidbody phys;
     private float AITrigger;
     public float AIcooldown = 2;
-    public float enthusiasim  = 1;
+    public float enthusiasim  = 2;
     private float currentEnthus = 0;
-    public float jumpHeight = 2;
+    public float jumpHeight = 4;
     public float moveSpeed = 2;
     private Vector2 aim;
     public GameObject targetLocation;
@@ -66,6 +66,6 @@ public class SlimeMovement : MonoBehaviour {
         }
         
         phys.velocity = new Vector3(aim.x * currentEnthus * moveSpeed, phys.velocity.y + jump,aim.y * currentEnthus * moveSpeed);
-        currentEnthus -= Time.deltaTime*1.1f;
+        currentEnthus *= 1-Time.deltaTime;
     }
 }

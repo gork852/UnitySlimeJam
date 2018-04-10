@@ -16,9 +16,13 @@ public class GameDirector : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Time.time-lastSpawn > 2)
+        if (Time.time-lastSpawn > 10)
         {
-            Instantiate(enemyPrefab, new Vector3(Random.value, Random.value, Random.value), this.transform.rotation,this.transform);
+            for(int i = 0; i < 4; i++)
+            {
+                Instantiate(enemyPrefab, new Vector3(Random.value * 5 + Player.transform.position.x + 5, 2, Random.value * 10 - 5), this.transform.rotation, this.transform);
+            }
+            
             lastSpawn = Time.time;
         }
 	}
