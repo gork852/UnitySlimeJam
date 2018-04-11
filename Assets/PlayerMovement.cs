@@ -67,7 +67,7 @@ public class PlayerMovement : MonoBehaviour {
                 float jump = Random.value > .7 ? moveSpeed : 0;
                 phys.velocity = new Vector3(wantDir.x, phys.velocity.y+jump, wantDir.z);
                 moveTime = Time.time + moveDownTime;
-                Debug.Log("moved!");
+                //Debug.Log("moved!");
             }
             
         }
@@ -99,7 +99,7 @@ public class PlayerMovement : MonoBehaviour {
 	}
     private float attack(SlimeMovement enemy)
     {
-        enemy.stun();
+        enemy.stun(this.gameObject);
         enemy.damage(1);
         return 1;
     }

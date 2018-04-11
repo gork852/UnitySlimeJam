@@ -39,7 +39,11 @@ public class SlimeMovement : MonoBehaviour {
             {
                 currentEnthus = enthusiasim;
                 float aimDecision = Random.value;
-                if (aimDecision > .8)
+                if(this.transform.position.x < GameDirector.Director.Player.transform.position.x)
+                {
+                    aim = new Vector2(1, 0);
+                }
+                else if (aimDecision > .8 )
                 {
 
                     //aim at player
@@ -77,9 +81,10 @@ public class SlimeMovement : MonoBehaviour {
             currentEnthus *= 1 - Time.deltaTime;
         }
     }
-    public void stun()
+    public void stun(GameObject attacker)
     {
         this.stunEnds = Time.time + 3;
+        phys.velocity = -(attacker.transform.position - this.transform.position).normalized * 5 + new Vector3(0, 4, 0);
     }
     public void damage(int amount)
     {

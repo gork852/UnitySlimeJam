@@ -44,7 +44,7 @@ public class SmoothCamera : MonoBehaviour {
         cheapDist *= .7f;
         //weight the player extra
         Vector3 middlePos = (maxPos + minPos) / 2;
-        middlePos = (middlePos * 1 + player.transform.position * 2) / 3;
+        middlePos = (middlePos * 1 + player.transform.position * 1) / 2;
         avgPos = (avgPos * 1 + player.transform.position * 2) / 3;
         //min and max distances
         cheapDist = cheapDist < 3 ? 3 : cheapDist;

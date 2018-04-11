@@ -111,6 +111,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 126c68b268906e541bce65bb68487e56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AIcooldown: 2
+  enthusiasim: 2
+  jumpHeight: 4
+  moveSpeed: 2
+  targetLocation: {fileID: 0}
+  triggerDistance: 10
+  hp: 2
 --- !u!135 &135803550333648448
 SphereCollider:
   m_ObjectHideFlags: 1
