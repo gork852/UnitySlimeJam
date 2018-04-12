@@ -315,10 +315,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b0a9311517da1940a303686ed9ca7d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 2
+  attackRange: 5
   moveSpeed: 4
   attackCoolDown: 1
   maxEnergy: 10
+  lightningLine: {fileID: 1430408528524178, guid: d27c3996124bac44b98a4834efb1519f,
+    type: 2}
+  spookPrefab: {fileID: 1145813190864806, guid: 7f87f7ed21b6164458f05f6fa64ea010,
+    type: 2}
 --- !u!1 &253187128
 GameObject:
   m_ObjectHideFlags: 0
@@ -675,7 +679,12 @@ MonoBehaviour:
   Player: {fileID: 107455421}
   currentCamera: {fileID: 716529922}
   spawnRate: 10
-  enemiesSpaned: []
+  enemiesSpawned: []
+  Qability: {fileID: 921150318}
+  Wability: {fileID: 907758411}
+  Eability: {fileID: 888677802}
+  Rability: {fileID: 1412565852}
+  mainLight: {fileID: 875351660}
 --- !u!1 &716529922
 GameObject:
   m_ObjectHideFlags: 0

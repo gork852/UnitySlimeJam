@@ -29,7 +29,7 @@ public class SlimeMovement : MonoBehaviour {
     {
         if(hp == 0)
         {
-            GameDirector.Director.enemiesSpaned.Remove(this.gameObject);
+            GameDirector.Director.enemiesSpawned.Remove(this.gameObject);
             Destroy(this.gameObject);
         }
         if (stunEnds < Time.time)
